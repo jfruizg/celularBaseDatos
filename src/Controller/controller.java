@@ -66,7 +66,7 @@ public class controller {
                                     vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
                                     CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
                                 } else {
-                                    vista.mostrarDatos("error");
+                                    vista.mostrarDatos("****** Verify the data ******** Dont repeat the codephone or the cellphone"+"\n");
                                     vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
                                     CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
                                 }
@@ -74,21 +74,21 @@ public class controller {
                                 vista.mostrarDatos("Write the correct code and the cellphone correct");
                             }
                         } else {
-                            vista.mostrarDatos("Write the numbers correct, and not repeat tge codephone or the munber phone"+"\n");
+                            vista.mostrarDatos("Write the numbers correct, and not repeat the codephone or the munber phone"+"\n");
                         }
 
 
                         break;
                     case 2:
                         vista.mostrarDatos("Remove mobile" + "\n");
-                        vista.mostrarDatos("Write the mobaile IMEI code");
+                        vista.mostrarDatos("Write the mobaile IMEI code = ");
                         String codigoIbei = vista.recibirDatos();
                         if (codigoIbei == null) {
 
                         } else {
                             try {
                                 if (celular.eliminarCelular(codigoIbei, listaCelulares, file)) {
-                                    vista.mostrarDatos("Perfcet");
+                                    vista.mostrarDatos("The phone was removed"+"\n");
                                     vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
                                     CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
                                 } else {
@@ -115,20 +115,20 @@ public class controller {
                         break;
                     case 5:
                         vista.mostrarDatos("modify your mobile"+"\n");
-                        vista.mostrarDatos("Write the code phone");
+                        vista.mostrarDatos("Write the code phone = ");
                         String codePhone = vista.recibirDatos();
 
                         if(celular.verificarImei(codePhone,listaCelulares) == false){
                             vista.mostrarDatos("In this option write the new data" + "\n");
-                            vista.mostrarDatos("Mobile number");
+                            vista.mostrarDatos("Mobile number = ");
                             String numeroCelularModificar = (vista.recibirDatos());
-                            vista.mostrarDatos("Owners Name");
+                            vista.mostrarDatos("Owners Name = ");
                             String nombreDueñoModificar = vista.recibirDatos();
-                            vista.mostrarDatos("IMEI code");
+                            vista.mostrarDatos("IMEI code = ");
                             String codigoImeiModificar = (vista.recibirDatos());
-                            vista.mostrarDatos("Mobile brand");
+                            vista.mostrarDatos("Mobile brand = ");
                             String marcaCelularModificar = (vista.recibirDatos());
-                            vista.mostrarDatos("Mobile reference");
+                            vista.mostrarDatos("Mobile reference = ");
                             String referenciCelularModificar = (vista.recibirDatos());
 
 
@@ -147,7 +147,7 @@ public class controller {
                                     vista.mostrarDatos("Digite el codigo imei con 15 numeros");
                                 }
                             } else {
-                                vista.mostrarDatos("Error");
+                                vista.mostrarDatos("***** Verify the che correct data *****"+"\n"+"Dont repeat the codephone or the number of one phone");
                             }
                         }
 

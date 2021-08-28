@@ -224,6 +224,17 @@ public class celularDAO {
         }
         return result;
     }
+    public Boolean verificarModificacionImei(String codigoImei, ArrayList<phone> listaCelular){
+        Boolean result = true;
+        for(int i= 0; i<listaCelular.size(); i++){
+            if(listaCelular.get(i).getCodigoImei().equals(codigoImei)){
+                result = true;
+            }else{
+                result = false;
+            }
+        }
+        return result;
+    }
     public Boolean verificarCelular(String numeroCelular, ArrayList<phone> listaCelular){
         Boolean result = true;
         for(int i = 0; i<listaCelular.size(); i++){

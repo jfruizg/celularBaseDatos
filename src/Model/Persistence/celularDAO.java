@@ -213,6 +213,29 @@ public class celularDAO {
         return texto;
     }
 
+    public Boolean verificarImei(String codigImei, ArrayList<phone> listaCelular) {
+        Boolean result = true;
+        for (int i = 0; i < listaCelular.size(); i++) {
+            if (listaCelular.get(i).getCodigoImei().equals(codigImei)) {
+                result = false;
+            } else {
+                result = true;
+            }
+        }
+        return result;
+    }
+    public Boolean verificarCelular(String numeroCelular, ArrayList<phone> listaCelular){
+        Boolean result = true;
+        for(int i = 0; i<listaCelular.size(); i++){
+            if(listaCelular.get(i).getNumeroCelular().equals(numeroCelular)){
+                result = false;
+            }else {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     private void verificarInvariante() {
         assert archivo != null : "El archivo en el que se va a trabajar no puede ser null";
     }

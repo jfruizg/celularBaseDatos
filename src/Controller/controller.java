@@ -1,5 +1,6 @@
 package Controller;
 
+import Exportables.exportarExcel;
 import Model.Persistence.celularDAO;
 import Model.Persistence.operatcionArchivo;
 import Model.phone;
@@ -11,11 +12,12 @@ import java.util.Locale;
 
 public class controller {
 
-    view vista;
-    celularDAO celular;
-    operatcionArchivo archivo;
+    private view vista;
+    private celularDAO celular;
+    private operatcionArchivo archivo;
     private ArrayList<phone> listaCelulares;
     private File file = new File("registroCelular.dat");
+    private exportarExcel excel;
 
     public controller() {
         vista = new view();
@@ -23,6 +25,7 @@ public class controller {
         archivo = new operatcionArchivo(file);
         celular = new celularDAO(archivo);
         listaCelulares = archivo.leerAchivo(file);
+        this.excel = new exportarExcel();
         ejecutar();
     }
 
@@ -35,7 +38,7 @@ public class controller {
             vista.mostrarDatos("*********************************" + "\n" + "\n");
 
             vista.mostrarDatos("Options" + "\n");
-            vista.mostrarDatos("Register cellphone [1]" + "\n" + "Remove [2]" + "\n" + "Show only one phone register [3]" + "\n" + "Show all the registers [4]" + "\n" + "Upgrade cellphone [5]" + "\n");
+            vista.mostrarDatos("Register cellphone [1]" + "\n" + "Remove [2]" + "\n" + "Show only one phone register [3]" + "\n" + "Show all the registers [4]" + "\n" + "Upgrade cellphone [5]" + "\n"+"Show in excel"+"\n");
             int opcionPrincipal = Integer.parseInt(vista.recibirDatos());
 
             if (opcionPrincipal > 1 || opcionPrincipal < 5) {
@@ -54,12 +57,11 @@ public class controller {
                         String marcaCelular = (vista.recibirDatos());
                         vista.mostrarDatos("Mobile reference");
                         String referenciCelular = (vista.recibirDatos());
-                        for (int i = 0; i < listaCelulares.size(); i++) {
-                            if (listaCelulares.get(i).getNumeroCelular().equals(numeroCelular)) {
-                                vista.mostrarDatos("You cant repeat the number phone" + "\n");
-                            } else if (listaCelulares.get(i).getCodigoImei().equals(codigoImei)) {
-                                vista.mostrarDatos("You cant repeat the code " + "\n");
-                            } else {
+
+
+                        if (celular.verificarImei(codigoImei, listaCelulares) == true && celular.verificarCelular(numeroCelular,listaCelulares) == true) {
+
+                            if (codigoImei.length() == 15 || numeroCelular.length() > 10) {
                                 if (celular.agregarCelular(numeroCelular, nombreDueño, codigoImei, marcaCelular, referenciCelular, listaCelulares, file)) {
                                     vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
                                     CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
@@ -68,9 +70,13 @@ public class controller {
                                     vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
                                     CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
                                 }
-
+                            } else {
+                                vista.mostrarDatos("Digite el codigo imei con 15 numeros");
                             }
+                        } else {
+                            vista.mostrarDatos("Error");
                         }
+
 
                         break;
                     case 2:
@@ -109,117 +115,14 @@ public class controller {
                         break;
                     case 5:
                         vista.mostrarDatos("modify your mobile");
-                        vista.mostrarDatos("upgrade all the mobile -> [1]" + "\n" + "Upgrade only the number -> [2]" + "\n" + "Upgrade only the owner -> [3]" + "\n" + "Upgrade only the brand and the reference -> [4]" + "\n" + "Upgrade the IMEI code -> [5]" + "\n");
                         int tipoModificacion = Integer.parseInt(vista.recibirDatos());
+                        break;
 
-                        switch (tipoModificacion) {
-                            case 1:
-                                vista.mostrarDatos("Upgrade all the mobile" + "\n");
-                                vista.mostrarDatos("Write the number IBEI code");
-                                String code = vista.recibirDatos();
-                                vista.mostrarDatos("Mobile number");
-                                String numeroCelularModificar = (vista.recibirDatos());
-                                vista.mostrarDatos("Owners Name");
-                                String nombreDueñoModificar = vista.recibirDatos();
-                                vista.mostrarDatos("Mobile brand");
-                                String marcaCelularModificar = (vista.recibirDatos());
-                                vista.mostrarDatos("Mobile reference");
-                                String referenciCelularModificar = (vista.recibirDatos());
-
-                                for (int i = 0; i < listaCelulares.size(); i++) {
-                                    if (listaCelulares.get(i).getNumeroCelular().equals(numeroCelularModificar)) {
-                                        vista.mostrarDatos("You cant repeat the number phone" + "\n");
-                                    } else {
-                                        if (celular.modificarTodoEmpleado(numeroCelularModificar, nombreDueñoModificar, code, marcaCelularModificar, referenciCelularModificar, listaCelulares, file)) {
-                                            vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                            CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                        } else {
-                                            vista.mostrarDatos("O no");
-                                            vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                            CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                        }
-                                    }
-                                }
-
-                                break;
-                            case 2:
-                                vista.mostrarDatos("Upgrade only Number" + "\n");
-                                vista.mostrarDatos("Write the number IBEI code");
-                                String codeNumber = vista.recibirDatos();
-                                vista.mostrarDatos("Mobile number");
-                                String numeroCelularNumero = (vista.recibirDatos());
-
-                                for (int i = 0; i < listaCelulares.size(); i++) {
-                                    if (listaCelulares.get(i).getNumeroCelular().equals(numeroCelularNumero)) {
-                                        vista.mostrarDatos("You cant repeat the number phone" + "\n");
-                                    } else {
-                                        if (celular.modificarNumero(numeroCelularNumero, codeNumber, listaCelulares, file)) {
-                                            vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                            CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                        } else {
-                                            vista.mostrarDatos("O no");
-                                            vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                            CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                        }
-                                    }
-                                }
-                                break;
-                            case 3:
-                                vista.mostrarDatos("Upgrade only Name" + "\n");
-                                vista.mostrarDatos("Write the number IBEI code");
-                                String codeName = vista.recibirDatos();
-                                vista.mostrarDatos("Owners Name");
-                                String nombreDueñoSModificar = vista.recibirDatos();
-                                if (celular.modificarNombreDueño(nombreDueñoSModificar, codeName, listaCelulares, file)) {
-                                    vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                    CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                } else {
-                                    vista.mostrarDatos("O no");
-                                    vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                    CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                }
-                                break;
-                            case 4:
-                                vista.mostrarDatos("Upgrade only the brand and the reference" + "\n");
-                                vista.mostrarDatos("Write the number IBEI code");
-                                String codigoReferenciaIbei = vista.recibirDatos();
-                                vista.mostrarDatos("Write the Mobile brand");
-                                String marcaCelularModificarS = vista.recibirDatos();
-                                vista.mostrarDatos("Write the reference");
-                                String referenciaModificarS = vista.recibirDatos();
-
-                                if (celular.modificarMarcaReferencia(codigoReferenciaIbei, marcaCelularModificarS, referenciaModificarS, listaCelulares, file)) {
-                                    vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                    CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                } else {
-                                    vista.mostrarDatos("O no");
-                                    vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                    CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                }
-                                break;
-                            case 5:
-                                vista.mostrarDatos("Upgrade only the IBEI code" + "\n");
-                                vista.mostrarDatos("Write the number IBEI code");
-                                String codigoIbeiModificar = vista.recibirDatos();
-                                vista.mostrarDatos("Write the new code");
-                                String nuevoCodigo = vista.recibirDatos();
-
-                                for (int i = 0; i < listaCelulares.size(); i++) {
-                                    if (listaCelulares.get(i).getCodigoImei().equals(nuevoCodigo)) {
-                                        vista.mostrarDatos("You cant repeat the code phone" + "\n");
-                                    } else {
-
-                                        if (celular.modificarCodigoImei(codigoIbeiModificar, nuevoCodigo, listaCelulares, file)) {
-                                            vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                            CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                        } else {
-                                            vista.mostrarDatos("O no");
-                                            vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
-                                            CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
-                                        }
-                                    }
-                                }
-                                break;
+                    case 6:
+                        try{
+                            excel.Excel(listaCelulares);
+                        }catch (NullPointerException e){
+                            vista.mostrarDatos("No");
                         }
                         break;
                 }

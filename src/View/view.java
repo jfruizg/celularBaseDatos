@@ -9,13 +9,9 @@ public class view {
     public String recibirDatos(){
         String dato = in.nextLine();
         return dato;
-
-
     }
     public void mostrarDatos(String dato){
         System.out.print(dato);
     }
-
-
 
 }

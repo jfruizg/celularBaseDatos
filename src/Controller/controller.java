@@ -38,7 +38,7 @@ public class controller {
             vista.mostrarDatos("*********************************" + "\n" + "\n");
 
             vista.mostrarDatos("Options" + "\n");
-            vista.mostrarDatos("Register cellphone [1]" + "\n" + "Remove [2]" + "\n" + "Show only one phone register [3]" + "\n" + "Show all the registers [4]" + "\n" + "Upgrade cellphone [5]" + "\n"+"Show in excel"+"\n");
+            vista.mostrarDatos("Register cellphone [1]" + "\n" + "Remove [2]" + "\n" + "Show only one phone register [3]" + "\n" + "Show all the registers [4]" + "\n" + "Upgrade cellphone [5]" + "\n"+"Show in excel ->[6]"+"\n");
             int opcionPrincipal = Integer.parseInt(vista.recibirDatos());
 
             if (opcionPrincipal > 1 || opcionPrincipal < 5) {
@@ -115,7 +115,42 @@ public class controller {
                         break;
                     case 5:
                         vista.mostrarDatos("modify your mobile");
-                        int tipoModificacion = Integer.parseInt(vista.recibirDatos());
+                        vista.mostrarDatos("Write the code phone");
+                        String codePhone = vista.recibirDatos();
+
+                        if(celular.verificarImei(codePhone,listaCelulares) == false){
+                            vista.mostrarDatos("In this option write the new data" + "\n");
+                            vista.mostrarDatos("Mobile number");
+                            String numeroCelularModificar = (vista.recibirDatos());
+                            vista.mostrarDatos("Owners Name");
+                            String nombreDueñoModificar = vista.recibirDatos();
+                            vista.mostrarDatos("IMEI code");
+                            String codigoImeiModificar = (vista.recibirDatos());
+                            vista.mostrarDatos("Mobile brand");
+                            String marcaCelularModificar = (vista.recibirDatos());
+                            vista.mostrarDatos("Mobile reference");
+                            String referenciCelularModificar = (vista.recibirDatos());
+
+
+                            if (celular.verificarImei(codigoImeiModificar, listaCelulares) == true && celular.verificarCelular(numeroCelularModificar,listaCelulares) == true) {
+
+                                if (codigoImeiModificar.length() == 15 || numeroCelularModificar.length() > 10) {
+                                    if (celular.agregarCelular(numeroCelularModificar, nombreDueñoModificar, codigoImeiModificar, marcaCelularModificar, referenciCelularModificar, listaCelulares, file)) {
+                                        vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
+                                        CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
+                                    } else {
+                                        vista.mostrarDatos("error");
+                                        vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
+                                        CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
+                                    }
+                                } else {
+                                    vista.mostrarDatos("Digite el codigo imei con 15 numeros");
+                                }
+                            } else {
+                                vista.mostrarDatos("Error");
+                            }
+                        }
+
                         break;
 
                     case 6:

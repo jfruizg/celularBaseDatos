@@ -33,12 +33,12 @@ public class controller {
         String CONST = "SI";
 
         while (CONST.equals("SI")) {
-            vista.mostrarDatos("*********************************");
-            vista.mostrarDatos("Welcome to the mobile center");
+            vista.mostrarDatos("*********************************"+"\n");
+            vista.mostrarDatos("Welcome to the mobile center"+"\n");
             vista.mostrarDatos("*********************************" + "\n" + "\n");
 
             vista.mostrarDatos("Options" + "\n");
-            vista.mostrarDatos("Register cellphone [1]" + "\n" + "Remove [2]" + "\n" + "Show only one phone register [3]" + "\n" + "Show all the registers [4]" + "\n" + "Upgrade cellphone [5]" + "\n"+"Show in excel ->[6]"+"\n");
+            vista.mostrarDatos("Register cellphone -> [1]" + "\n" + "Remove phone -> [2]" + "\n" + "Show only one phone register -> [3]" + "\n" + "Show all the registers -> [4]" + "\n" + "Upgrade cellphone -> [5]" + "\n"+"Show in excel -> [6]"+"\n");
             int opcionPrincipal = Integer.parseInt(vista.recibirDatos());
 
             if (opcionPrincipal > 1 || opcionPrincipal < 5) {
@@ -47,15 +47,15 @@ public class controller {
 
                     case 1:
                         vista.mostrarDatos("In this option you need to write some data" + "\n");
-                        vista.mostrarDatos("Mobile number");
+                        vista.mostrarDatos("Mobile number = ");
                         String numeroCelular = (vista.recibirDatos());
-                        vista.mostrarDatos("Owners Name");
+                        vista.mostrarDatos("Owners Name = ");
                         String nombreDueño = vista.recibirDatos();
-                        vista.mostrarDatos("IMEI code");
+                        vista.mostrarDatos("IMEI code = ");
                         String codigoImei = (vista.recibirDatos());
-                        vista.mostrarDatos("Mobile brand");
+                        vista.mostrarDatos("Mobile brand = ");
                         String marcaCelular = (vista.recibirDatos());
-                        vista.mostrarDatos("Mobile reference");
+                        vista.mostrarDatos("Mobile reference = ");
                         String referenciCelular = (vista.recibirDatos());
 
 
@@ -71,10 +71,10 @@ public class controller {
                                     CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
                                 }
                             } else {
-                                vista.mostrarDatos("Digite el codigo imei con 15 numeros");
+                                vista.mostrarDatos("Write the correct code and the cellphone correct");
                             }
                         } else {
-                            vista.mostrarDatos("Error");
+                            vista.mostrarDatos("Write the numbers correct, and not repeat tge codephone or the munber phone"+"\n");
                         }
 
 
@@ -114,7 +114,7 @@ public class controller {
                         CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
                         break;
                     case 5:
-                        vista.mostrarDatos("modify your mobile");
+                        vista.mostrarDatos("modify your mobile"+"\n");
                         vista.mostrarDatos("Write the code phone");
                         String codePhone = vista.recibirDatos();
 

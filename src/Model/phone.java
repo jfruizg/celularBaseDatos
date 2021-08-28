@@ -65,9 +65,10 @@ public class phone implements Serializable {
     }
 
     public String toString() {
-        return "Celular [numer=" + getNumeroCelular() + "\n" + "Nombre Dueño =" + getNombreDueño() + "\n" + "Codigo IMEI ="
-                + getCodigoImei() + "\n" + "Marca del celular =" + getMarcaCelular() + "\n" + "Rferencia = " + getReferencia() + "\n"
-                + "]";
+
+        return "Mobile"+"\n"+"++++++++++++++++++++++++++++++++++++++"+"\n"+"1) Number = " + getNumeroCelular() + "\n" + "2) Owners Name =" + getNombreDueño() + "\n" + "3) IMEI Code = "
+                + getCodigoImei() + "\n" + "3) Phone brand =" + getMarcaCelular() + "\n" + "4) Reference = " + getReferencia() + "\n"
+                + "++++++++++++++++++++++++++++++++++++++"+"\n";
     }
 
     public void verificarinvariante() {

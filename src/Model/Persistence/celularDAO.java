@@ -99,96 +99,16 @@ public class celularDAO {
      * @throws: el metodo registrar casa realiza una exception
      */
 
-    public boolean modificarTodoEmpleado(String numeroCelular, String nombreDueño, String codigoImei, String marcaCelular, String referencia,
+    public boolean modificarCelular(String codigoNuevo,String numeroCelular, String nombreDueño, String codigoImei, String marcaCelular, String referencia,
                                          ArrayList<phone> listaCelular, File file) {
 
         for (int i = 0; i < listaCelular.size(); i++) {
             if (listaCelular.get(i).getCodigoImei().equals(codigoImei)) {
-                listaCelular.get(i).setNumeroCelular(numeroCelular);
-                listaCelular.get(i).setNombreDueño(nombreDueño);
-                listaCelular.get(i).setMarcaCelular(marcaCelular);
-                listaCelular.get(i).setReferencia(referencia);
-            }
-        }
-        file.delete();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        this.archivo.escribirArchivo(listaCelular, file);
-
-        return true;
-    }
-
-    public boolean modificarNumero(String numeroCelular, String codigoImei,
-                                   ArrayList<phone> listaCelular, File file) {
-
-        for (int i = 0; i < listaCelular.size(); i++) {
-            if (listaCelular.get(i).getCodigoImei().equals(codigoImei)) {
-                listaCelular.get(i).setNumeroCelular(numeroCelular);
-            }
-        }
-        file.delete();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        this.archivo.escribirArchivo(listaCelular, file);
-
-        return true;
-    }
-
-    public boolean modificarNombreDueño(String nombreDueño, String codigoImei,
-                                        ArrayList<phone> listaCelular, File file) {
-
-        for (int i = 0; i < listaCelular.size(); i++) {
-            if (listaCelular.get(i).getCodigoImei().equals(codigoImei)) {
-                listaCelular.get(i).setNombreDueño(nombreDueño);
-            }
-        }
-        file.delete();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        this.archivo.escribirArchivo(listaCelular, file);
-
-        return true;
-    }
-
-    public boolean modificarMarcaReferencia(String codigoImei, String marcaCelular, String referencia,
-                                            ArrayList<phone> listaCelular, File file) {
-
-        for (int i = 0; i < listaCelular.size(); i++) {
-            if (listaCelular.get(i).getCodigoImei().equals(codigoImei)) {
-                listaCelular.get(i).setMarcaCelular(marcaCelular);
-                listaCelular.get(i).setReferencia(referencia);
-            }
-        }
-        file.delete();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        this.archivo.escribirArchivo(listaCelular, file);
-
-        return true;
-    }
-
-    public boolean modificarCodigoImei(String codigoImei, String codigoNuevo,
-                                       ArrayList<phone> listaCelular, File file) {
-
-        for (int i = 0; i < listaCelular.size(); i++) {
-            if (listaCelular.get(i).getCodigoImei().equals(codigoImei)) {
                 listaCelular.get(i).setCodigoImei(codigoNuevo);
+                listaCelular.get(i).setNumeroCelular(numeroCelular);
+                listaCelular.get(i).setNombreDueño(nombreDueño);
+                listaCelular.get(i).setMarcaCelular(marcaCelular);
+                listaCelular.get(i).setReferencia(referencia);
             }
         }
         file.delete();
@@ -202,6 +122,8 @@ public class celularDAO {
 
         return true;
     }
+
+
 
     public String mostrarPorCelular(String codigoImei, ArrayList<phone> listaCelular, File file) {
         String texto = "";

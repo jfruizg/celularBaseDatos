@@ -135,7 +135,7 @@ public class controller {
                             if (celular.verificarImei(codigoImeiModificar, listaCelulares) == true && celular.verificarCelular(numeroCelularModificar, listaCelulares) == true) {
 
                                 if (codigoImeiModificar.length() == 15 || numeroCelularModificar.length() > 10) {
-                                    if (celular.agregarCelular(numeroCelularModificar, nombreDueñoModificar, codigoImeiModificar, marcaCelularModificar, referenciCelularModificar, listaCelulares, file)) {
+                                    if (celular.modificarCelular(codigoImeiModificar,numeroCelularModificar, nombreDueñoModificar, codigoImeiModificar, marcaCelularModificar, referenciCelularModificar, listaCelulares, file)) {
                                         vista.mostrarDatos("You want to go to the Menu again? or end the program" + "\n" + "SI" + "\n" + "NO" + "\n");
                                         CONST = vista.recibirDatos().toUpperCase(Locale.ROOT);
                                     } else {
